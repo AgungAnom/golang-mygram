@@ -21,9 +21,10 @@ func StartApp() *gin.Engine {
 	socialMediaRouter := r.Group("/social-media")
 	{
 		socialMediaRouter.Use(middlewares.Authentication())
-		socialMediaRouter.POST("/",controllers.CreateComment)
+		socialMediaRouter.POST("/",controllers.CreateSocialMedia)
+		socialMediaRouter.GET("/",controllers.GetAllSocialMedia)
+		socialMediaRouter.GET("/:socialMediaID",controllers.GetSocialMedia)
 		socialMediaRouter.PUT("/:socialMediaID",middlewares.SocialMediaAuthorization(),controllers.UpdateSocialMedia)
-		socialMediaRouter.GET("/:socialMediaID",middlewares.SocialMediaAuthorization(),controllers.GetSocialMedia)
 		socialMediaRouter.DELETE("/:socialMediaID",middlewares.SocialMediaAuthorization(),controllers.DeleteSocialMedia)
 	}
 
@@ -31,9 +32,9 @@ func StartApp() *gin.Engine {
 	photoRouter := r.Group("/photos")
 	{
 		photoRouter.Use(middlewares.Authentication())
-		photoRouter.POST("/",controllers.CreateComment)
+		photoRouter.POST("/",controllers.CreatePhoto)
+		photoRouter.GET("/:photoID",controllers.GetPhoto)
 		photoRouter.PUT("/:photoID",middlewares.PhotoAuthorization(),controllers.UpdatePhoto)
-		photoRouter.GET("/:photoID",middlewares.PhotoAuthorization(),controllers.GetPhoto)
 		photoRouter.DELETE("/:photoID",middlewares.PhotoAuthorization(),controllers.DeletePhoto)
 	}
 	// Comment Router
@@ -41,8 +42,8 @@ func StartApp() *gin.Engine {
 	{
 		commentRouter.Use(middlewares.Authentication())
 		commentRouter.POST("/",controllers.CreateComment)
+		commentRouter.GET("/:commentID",controllers.GetComment)
 		commentRouter.PUT("/:commentID",middlewares.CommentAuthorization(),controllers.UpdateComment)
-		commentRouter.GET("/:commentID",middlewares.CommentAuthorization(),controllers.GetComment)
 		commentRouter.DELETE("/:commentID",middlewares.CommentAuthorization(),controllers.DeleteComment)
 	}
 	return r

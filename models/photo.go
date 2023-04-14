@@ -16,7 +16,6 @@ UserID		uint
 Comment []Comment		`gorm:"constraint:OnUpdate:CASCADE, OnDelete:SET NULL;"`
 CreatedAt time.Time 	`json:"created_at"`
 UpdatedAt time.Time 	`json:"updated_at"`
-
 }
 
 

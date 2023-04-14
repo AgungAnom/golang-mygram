@@ -26,7 +26,6 @@ func CreateSocialMedia(c *gin.Context) {
 	}
 
 	SocialMedia.UserID = userID
-
 	err := db.Debug().Create(&SocialMedia).Error
 	if err != nil{
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -43,7 +42,7 @@ func UpdateSocialMedia(c *gin.Context) {
 	db := database.GetDB()
 	OldSocialMedia := models.Socialmedia{}
 	SocialMedia := models.Socialmedia{}
-	SocialMediaID, _ := strconv.Atoi(c.Param("SocialMediaID"))
+	SocialMediaID, _ := strconv.Atoi(c.Param("socialMediaID"))
 	userID := uint(userData["id"].(float64))
 
 
@@ -88,15 +87,15 @@ func UpdateSocialMedia(c *gin.Context) {
 }
 
 func GetSocialMedia(c *gin.Context){
-	SocialMediaID, _ := strconv.Atoi(c.Param("SocialMediaID"))
+	SocialMediaID, _ := strconv.Atoi(c.Param("socialMediaID"))
 	SocialMedia := models.Socialmedia{}
 	db := database.GetDB()
 
 	err := db.First(&SocialMedia, SocialMediaID).Error
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
 		c.AbortWithStatusJSON(http.StatusNotFound,gin.H{
-			"error_message": fmt.Sprintf("Social Media with id %v not found", SocialMediaID),
+			"error" :"Data Not Found",
+			"message": fmt.Sprintf("Social Media with id %v not found", SocialMediaID),
 			})
 		return
 	}
@@ -104,7 +103,7 @@ func GetSocialMedia(c *gin.Context){
 }
 
 func DeleteSocialMedia(c *gin.Context){
-	SocialMediaID, _ := strconv.Atoi(c.Param("SocialMediaID"))
+	SocialMediaID, _ := strconv.Atoi(c.Param("socialMediaID"))
 	SocialMedia := models.Socialmedia{}
 	db := database.GetDB()
 
@@ -125,4 +124,16 @@ func DeleteSocialMedia(c *gin.Context){
 	c.JSON(http.StatusOK,gin.H{
 		"message":"Social Media deleted successfully",
 	})
+}
+
+func GetAllSocialMedia(c *gin.Context){
+	db := database.GetDB()
+	SocialMedia := []models.Socialmedia{}
+	err := db.Find(&SocialMedia).Error
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	c.JSON(http.StatusOK,SocialMedia)
 }

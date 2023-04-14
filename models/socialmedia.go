@@ -9,8 +9,8 @@ import (
 
 type Socialmedia struct {
 ID 				uint	 	`gorm:"primaryKey" json:"id"`
-Name			string		`gorm:"not null" json:"name" form:"name" validate:"required~Name required"`
-SocialMediaURL	string		`gorm:"not null" json:"social_media_url" form:"social_media_url" validate:"required~Social Media URL required"`
+Name			string		`gorm:"not null" json:"name" form:"name" valid:"required~Name required"`
+SocialMediaURL	string		`gorm:"not null" json:"social_media_url" form:"social_media_url" valid:"required~Social Media URL required"`
 UserID			uint		
 CreatedAt 		time.Time 	`json:"created_at"`
 UpdatedAt 		time.Time 	`json:"updated_at"`

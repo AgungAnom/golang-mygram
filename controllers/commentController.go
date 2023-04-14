@@ -25,8 +25,18 @@ func CreateComment(c *gin.Context) {
 		c.ShouldBind(&Comment)
 	}
 
-	Comment.UserID = userID
+	// Check photo before create comment
+	Photo := models.Comment{}
+	errPhoto := db.First(&Photo,  Comment.PhotoID).Error
+	if errPhoto != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound,gin.H{
+			"error_message": fmt.Sprintf("Photo with id %v not found", Comment.PhotoID),
+			})
+		return
+	}
 
+	
+	Comment.UserID = userID
 	err := db.Debug().Create(&Comment).Error
 	if err != nil{
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -61,6 +71,18 @@ func UpdateComment(c *gin.Context) {
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
+
+	// Check photo before update comment
+	Photo := models.Comment{}
+	errPhoto := db.First(&Photo,  Comment.PhotoID).Error
+	if errPhoto != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound,gin.H{
+			"error_message": fmt.Sprintf("Photo with id %v not found", Comment.PhotoID),
+			})
+		return
+	}
+
+
 	Comment.UserID = userID
 	Comment.ID = uint(CommentID)
 	Comment = models.Comment{
