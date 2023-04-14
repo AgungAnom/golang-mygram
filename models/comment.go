@@ -24,7 +24,6 @@ func (c *Comment) BeforeCreate(projectDB *gorm.DB) (err error){
 		err = errCreate
 		return	
 	}
-
 	return
 }
 

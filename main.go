@@ -1,9 +1,12 @@
 package main
 
 import (
-	"fmt"
+	"golang-mygram/database"
+	"golang-mygram/router"
 )
 
 func main(){
-	fmt.Println("Hello World")
+	database.StartDB()
+	r := router.StartApp()
+	r.Run(":8080")
 }
