@@ -14,6 +14,15 @@ var (
 	appJSON = "application/json"
 )
 
+// UserRegister godoc
+// @Summary Post new user
+// @Description Post detail of a user
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param models.User body models.User true "Register user"
+// @Success 201 {object} models.User
+// @Router /users/register [post]
 func UserRegister(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
@@ -41,7 +50,16 @@ func UserRegister(c *gin.Context) {
 	})
 }
 
-func UserLogin (c *gin.Context){
+// UserLogin godoc
+// @Summary Post to login account
+// @Description Post email and password to login
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param jsom body models.User true "Login user"
+// @Success 200 {object} models.User
+// @Router /users/login [post]
+func UserLogin(c *gin.Context){
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
 	User := models.User{}
@@ -73,7 +91,7 @@ func UserLogin (c *gin.Context){
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
-	c.JSON(http.StatusCreated, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"token": token,
 	})
 }

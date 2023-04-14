@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// Socialmedia represent the model for a socialmedia
 type Socialmedia struct {
 ID 				uint	 	`gorm:"primaryKey" json:"id"`
 Name			string		`gorm:"not null" json:"name" form:"name" valid:"required~Name required"`

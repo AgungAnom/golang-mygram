@@ -12,6 +12,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// CreateComment godoc
+// @Summary Post new comment
+// @Description Post detail of a comment
+// @Tags comments
+// @Accept json
+// @Produce json
+// @Param models.Comment body models.Comment true "Create comment"
+// @Success 201 {object} models.Comment
+// @Router /comments [post]
 func CreateComment(c *gin.Context) {
 	userData := c.MustGet("userData").(jwt.MapClaims)
 	db := database.GetDB()
@@ -47,6 +56,15 @@ func CreateComment(c *gin.Context) {
 	c.JSON(http.StatusCreated, Comment)
 }
 
+// UpdateComment godoc
+// @Summary Put update to comment identified by id
+// @Description Put update detail of a comment corresponding to the input id
+// @Tags comments
+// @Accept json
+// @Produce json
+// @Param commentID path uint true "ID of the comment"
+// @Success 200 {object} models.Comment
+// @Router /comments/{commentID} [put]
 func UpdateComment(c *gin.Context) {
 	userData := c.MustGet("userData").(jwt.MapClaims)
 	db := database.GetDB()
@@ -108,6 +126,15 @@ func UpdateComment(c *gin.Context) {
 	c.JSON(http.StatusOK, Comment)
 }
 
+// GetComment godoc
+// @Summary Get a comment detail by id
+// @Description Get data of comment corresponding to the input id
+// @Tags comments
+// @Accept json
+// @Produce json
+// @Param commentID path uint true "ID of the comment"
+// @Success 200 {object} models.Comment
+// @Router /comments/{commentID} [get]
 func GetComment(c *gin.Context){
 	CommentID, _ := strconv.Atoi(c.Param("commentID"))
 	Comment := models.Comment{}
@@ -124,6 +151,15 @@ func GetComment(c *gin.Context){
 	c.JSON(http.StatusOK, Comment)
 }
 
+// DeleteComment godoc
+// @Summary Delete a comment detail by id
+// @Description Delete data of comment corresponding to the input id
+// @Tags comments
+// @Accept json
+// @Produce json
+// @Param commentID path uint true "ID of the comment"
+// @Success 200 "Comment successfully deleted"
+// @Router /comments/{commentID} [delete]
 func DeleteComment(c *gin.Context){
 	CommentID, _ := strconv.Atoi(c.Param("commentID"))
 	Comment := models.Comment{}
@@ -144,10 +180,18 @@ func DeleteComment(c *gin.Context){
 	}
 
 	c.JSON(http.StatusOK,gin.H{
-		"message":"Comment deleted successfully",
+		"message":"Comment successfully deleted",
 	})
 }
 
+// GetAllComment godoc
+// @Summary Get details
+// @Description Get data of all comment
+// @Tags comments
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.Comment
+// @Router /comments [get]
 func GetAllComment(c *gin.Context){
 	db := database.GetDB()
 	Comment := []models.Comment{}

@@ -5,7 +5,19 @@ import (
 	"golang-mygram/middlewares"
 
 	"github.com/gin-gonic/gin"
+
+	_ "golang-mygram/docs"
+
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
+
+// @title Golang MyGram API
+// @version 1.0
+// @description Social media API for posting photos and commenting on people photos
+// @host localhost:3000
+// @BasePath /
+
 
 func StartApp() *gin.Engine {
 	r := gin.Default()
@@ -48,5 +60,7 @@ func StartApp() *gin.Engine {
 		commentRouter.PUT("/:commentID",middlewares.CommentAuthorization(),controllers.UpdateComment)
 		commentRouter.DELETE("/:commentID",middlewares.CommentAuthorization(),controllers.DeleteComment)
 	}
+
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	return r
 } 

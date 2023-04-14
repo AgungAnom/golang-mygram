@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// Comment represent the model for a comment
 type Comment struct {
 ID 			uint	 `gorm:"primaryKey" json:"id"`
 UserID		uint		

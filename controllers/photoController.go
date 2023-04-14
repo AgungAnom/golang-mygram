@@ -12,6 +12,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// CreatePhoto godoc
+// @Summary Post new photo
+// @Description Post detail of a photo
+// @Tags photos
+// @Accept json
+// @Produce json
+// @Param models.Photo body models.Photo true "Create photo"
+// @Success 201 {object} models.Photo
+// @Router /photos [post]
 func CreatePhoto(c *gin.Context) {
 	userData := c.MustGet("userData").(jwt.MapClaims)
 	db := database.GetDB()
@@ -38,6 +47,15 @@ func CreatePhoto(c *gin.Context) {
 	c.JSON(http.StatusCreated, Photo)
 }
 
+// UpdatePhoto godoc
+// @Summary Put update to photo identified by id
+// @Description Put update detail of a photo corresponding to the input id
+// @Tags photos
+// @Accept json
+// @Produce json
+// @Param photoID path uint true "ID of the photo"
+// @Success 200 {object} models.Photo
+// @Router /photos/{photoID} [put]
 func UpdatePhoto(c *gin.Context) {
 	userData := c.MustGet("userData").(jwt.MapClaims)
 	db := database.GetDB()
@@ -88,6 +106,15 @@ func UpdatePhoto(c *gin.Context) {
 	c.JSON(http.StatusOK, Photo)
 }
 
+// GetPhoto godoc
+// @Summary Get a photo detail by id
+// @Description Get data of photo corresponding to the input id
+// @Tags photos
+// @Accept json
+// @Produce json
+// @Param photoID path uint true "ID of the photo"
+// @Success 200 {object} models.Photo
+// @Router /photos/{photoID} [get]
 func GetPhoto(c *gin.Context){
 	PhotoID, _ := strconv.Atoi(c.Param("photoID"))
 	Photo := models.Photo{}
@@ -104,6 +131,15 @@ func GetPhoto(c *gin.Context){
 	c.JSON(http.StatusOK, Photo)
 }
 
+// DeletePhoto godoc
+// @Summary Delete a photo detail by id
+// @Description Delete data of photo corresponding to the input id
+// @Tags photos
+// @Accept json
+// @Produce json
+// @Param photoID path uint true "ID of the photo"
+// @Success 200 "Photo successfully deleted"
+// @Router /photos/{photoID} [delete]
 func DeletePhoto(c *gin.Context){
 	PhotoID, _ := strconv.Atoi(c.Param("photoID"))
 	Photo := models.Photo{}
@@ -124,10 +160,18 @@ func DeletePhoto(c *gin.Context){
 	}
 
 	c.JSON(http.StatusOK,gin.H{
-		"message":"Photo deleted successfully",
+		"message":"Photo successfully deleted",
 	})
 }
 
+// GetAllPhoto godoc
+// @Summary Get details
+// @Description Get data of all photo
+// @Tags photos
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.Photo
+// @Router /photos [get]
 func GetAllPhoto(c *gin.Context){
 	db := database.GetDB()
 	Photo := []models.Photo{}

@@ -12,6 +12,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// CreateSocialMedia godoc
+// @Summary Post new social-media
+// @Description Post detail of a social media
+// @Tags social-media
+// @Accept json
+// @Produce json
+// @Param models.Socialmedia body models.Socialmedia true "Create social media"
+// @Success 201 {object} models.Socialmedia
+// @Router /social-media [post]
 func CreateSocialMedia(c *gin.Context) {
 	userData := c.MustGet("userData").(jwt.MapClaims)
 	db := database.GetDB()
@@ -37,6 +46,15 @@ func CreateSocialMedia(c *gin.Context) {
 	c.JSON(http.StatusCreated, SocialMedia)
 }
 
+// UpdateSocialMedia godoc
+// @Summary Put update to social media identified by id
+// @Description Put update detail of a social media corresponding to the input id
+// @Tags social-media
+// @Accept json
+// @Produce json
+// @Param socialMediaID path uint true "ID of the social media"
+// @Success 200 {object} models.Socialmedia
+// @Router /social-media/{socialMediaID} [put]
 func UpdateSocialMedia(c *gin.Context) {
 	userData := c.MustGet("userData").(jwt.MapClaims)
 	db := database.GetDB()
@@ -85,7 +103,15 @@ func UpdateSocialMedia(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, SocialMedia)
 }
-
+// GetSocialMedia godoc
+// @Summary Get a social media detail by id
+// @Description Get data of social media corresponding to the input id
+// @Tags social-media
+// @Accept json
+// @Produce json
+// @Param socialMediaID path uint true "ID of the social media"
+// @Success 200 {object} models.Socialmedia
+// @Router /social-media/{socialMediaID} [get]
 func GetSocialMedia(c *gin.Context){
 	SocialMediaID, _ := strconv.Atoi(c.Param("socialMediaID"))
 	SocialMedia := models.Socialmedia{}
@@ -102,6 +128,15 @@ func GetSocialMedia(c *gin.Context){
 	c.JSON(http.StatusOK, SocialMedia)
 }
 
+// DeleteSocialMedia godoc
+// @Summary Delete a social media detail by id
+// @Description Delete data of social media corresponding to the input id
+// @Tags social-media
+// @Accept json
+// @Produce json
+// @Param socialMediaID path uint true "ID of the social media"
+// @Success 200 "Social Media successfully deleted"
+// @Router /social-media/{socialMediaID} [delete]
 func DeleteSocialMedia(c *gin.Context){
 	SocialMediaID, _ := strconv.Atoi(c.Param("socialMediaID"))
 	SocialMedia := models.Socialmedia{}
@@ -122,10 +157,18 @@ func DeleteSocialMedia(c *gin.Context){
 	}
 
 	c.JSON(http.StatusOK,gin.H{
-		"message":"Social Media deleted successfully",
+		"message":"Social Media successfully deleted",
 	})
 }
 
+// GetAllSocialMedia godoc
+// @Summary Get details
+// @Description Get data of all social media
+// @Tags social-media
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.Socialmedia
+// @Router /social-media [get]
 func GetAllSocialMedia(c *gin.Context){
 	db := database.GetDB()
 	SocialMedia := []models.Socialmedia{}
