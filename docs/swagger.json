@@ -6,7 +6,7 @@
         "contact": {},
         "version": "1.0"
     },
-    "host": "localhost:3000",
+    "host": "https://golang-mygram-production-dfb5.up.railway.app/",
     "basePath": "/",
     "paths": {
         "/comments": {
