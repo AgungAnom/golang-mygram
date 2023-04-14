@@ -15,7 +15,7 @@ import (
 // @title Golang MyGram API
 // @version 1.0
 // @description Social media API for posting photos and commenting on people photos
-// @host localhost:3000
+// @host https://golang-mygram-production-dfb5.up.railway.app/
 // @BasePath /
 
 
