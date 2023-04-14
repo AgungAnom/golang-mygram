@@ -16,7 +16,7 @@ Password	string			`gorm:"not null" json:"password" form:"password" validate:"req
 Age			int				`gorm:"not null" json:"age" form:"age" validate:"required~Age required, numeric~Age must be numeric,min=9~age must be above 9 years old"`
 Photo 		[]Photo			`gorm:"constraint:OnUpdate:CASCADE, OnDelete:SET NULL;"`
 Comment		[]Comment		`gorm:"constraint:OnUpdate:CASCADE, OnDelete:SET NULL;"`
-SocialMedia []SocialMedia	`gorm:"constraint:OnUpdate:CASCADE, OnDelete:SET NULL;"`
+SocialMedia []Socialmedia	`gorm:"constraint:OnUpdate:CASCADE, OnDelete:SET NULL;"`
 CreatedAt 	time.Time 		`json:"created_at"`
 UpdatedAt 	time.Time 		`json:"updated_at"`
 

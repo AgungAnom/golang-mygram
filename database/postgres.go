@@ -29,7 +29,7 @@ func StartDB() {
 		panic(err)
 	}
 
-	db.Debug().AutoMigrate(models.User{}, models.Photo{}, models.Comment{},models.SocialMedia{})
+	db.Debug().AutoMigrate(models.User{}, models.Photo{}, models.Comment{},models.Socialmedia{})
 	fmt.Println("Connected to Database")
 }
 

@@ -16,7 +16,7 @@ func CreateSocialMedia(c *gin.Context) {
 	userData := c.MustGet("userData").(jwt.MapClaims)
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
-	SocialMedia := models.SocialMedia{}
+	SocialMedia := models.Socialmedia{}
 	userID := uint(userData["id"].(float64))
 
 	if contentType == appJSON {
@@ -41,8 +41,8 @@ func CreateSocialMedia(c *gin.Context) {
 func UpdateSocialMedia(c *gin.Context) {
 	userData := c.MustGet("userData").(jwt.MapClaims)
 	db := database.GetDB()
-	OldSocialMedia := models.SocialMedia{}
-	SocialMedia := models.SocialMedia{}
+	OldSocialMedia := models.Socialmedia{}
+	SocialMedia := models.Socialmedia{}
 	SocialMediaID, _ := strconv.Atoi(c.Param("SocialMediaID"))
 	userID := uint(userData["id"].(float64))
 
@@ -63,7 +63,7 @@ func UpdateSocialMedia(c *gin.Context) {
 	}
 	SocialMedia.UserID = userID
 	SocialMedia.ID = uint(SocialMediaID)
-	SocialMedia = models.SocialMedia{
+	SocialMedia = models.Socialmedia{
 		Name: SocialMedia.Name,
 		SocialMediaURL: SocialMedia.SocialMediaURL,
 	}
@@ -89,7 +89,7 @@ func UpdateSocialMedia(c *gin.Context) {
 
 func GetSocialMedia(c *gin.Context){
 	SocialMediaID, _ := strconv.Atoi(c.Param("SocialMediaID"))
-	SocialMedia := models.SocialMedia{}
+	SocialMedia := models.Socialmedia{}
 	db := database.GetDB()
 
 	err := db.First(&SocialMedia, SocialMediaID).Error
@@ -105,7 +105,7 @@ func GetSocialMedia(c *gin.Context){
 
 func DeleteSocialMedia(c *gin.Context){
 	SocialMediaID, _ := strconv.Atoi(c.Param("SocialMediaID"))
-	SocialMedia := models.SocialMedia{}
+	SocialMedia := models.Socialmedia{}
 	db := database.GetDB()
 
 	err := db.First(&SocialMedia, SocialMediaID).Error

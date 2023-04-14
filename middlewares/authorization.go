@@ -93,7 +93,7 @@ func SocialMediaAuthorization() gin.HandlerFunc {
 
 		userData := c.MustGet("userData").(jwt.MapClaims)
 		userID := uint(userData["id"].(float64))
-		SocialMedia := models.SocialMedia{}
+		SocialMedia := models.Socialmedia{}
 
 		err = db.Select("user_id").First(&SocialMedia,uint(socialMediaID)).Error
 		if err != nil {
