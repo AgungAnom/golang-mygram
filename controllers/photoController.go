@@ -43,7 +43,7 @@ func UpdatePhoto(c *gin.Context) {
 	db := database.GetDB()
 	OldPhoto := models.Photo{}
 	Photo := models.Photo{}
-	PhotoID, _ := strconv.Atoi(c.Param("PhotoID"))
+	PhotoID, _ := strconv.Atoi(c.Param("photoID"))
 	userID := uint(userData["id"].(float64))
 
 
@@ -89,15 +89,15 @@ func UpdatePhoto(c *gin.Context) {
 }
 
 func GetPhoto(c *gin.Context){
-	PhotoID, _ := strconv.Atoi(c.Param("PhotoID"))
+	PhotoID, _ := strconv.Atoi(c.Param("photoID"))
 	Photo := models.Photo{}
 	db := database.GetDB()
 
 	err := db.First(&Photo, PhotoID).Error
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
 		c.AbortWithStatusJSON(http.StatusNotFound,gin.H{
-			"error_message": fmt.Sprintf("Photo with id %v not found", PhotoID),
+			"error" :"Data Not Found",
+			"message": fmt.Sprintf("Photo with id %v not found", PhotoID),
 			})
 		return
 	}
@@ -105,7 +105,7 @@ func GetPhoto(c *gin.Context){
 }
 
 func DeletePhoto(c *gin.Context){
-	PhotoID, _ := strconv.Atoi(c.Param("PhotoID"))
+	PhotoID, _ := strconv.Atoi(c.Param("photoID"))
 	Photo := models.Photo{}
 	db := database.GetDB()
 
