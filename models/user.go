@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"golang-mygram/helpers"
 	"time"
 
@@ -10,10 +11,10 @@ import (
 
 type User struct {
 ID 			uint	 		`gorm:"primaryKey" json:"id"`
-Username	string			`gorm:"not null;uniqueIndex" json:"username" form:"username" validate:"required~username required"`
-Email		string			`gorm:"not null;uniqueIndex" json:"email" form:"email" validate:"required~Email required,email~Invalid email address"`
-Password	string			`gorm:"not null" json:"password" form:"password" validate:"required~Password required,MinStringLength(6)~Password has to have a minimum length of 6 characters"`
-Age			int				`gorm:"not null" json:"age" form:"age" validate:"required~Age required, numeric~Age must be numeric,min=9~age must be above 9 years old"`
+Username	string			`gorm:"not null;uniqueIndex" json:"username" form:"username" valid:"required~username required"`
+Email		string			`gorm:"not null;uniqueIndex" json:"email" form:"email" valid:"required~Email required"`
+Password	string			`gorm:"not null" json:"password" form:"password" valid:"required~Password required"`
+Age			int				`gorm:"not null" json:"age" form:"age" valid:"required~Age must be numeric"`
 Photo 		[]Photo			`gorm:"constraint:OnUpdate:CASCADE, OnDelete:SET NULL;"`
 Comment		[]Comment		`gorm:"constraint:OnUpdate:CASCADE, OnDelete:SET NULL;"`
 SocialMedia []Socialmedia	`gorm:"constraint:OnUpdate:CASCADE, OnDelete:SET NULL;"`
@@ -30,6 +31,25 @@ func (u *User) BeforeCreate(projectDB *gorm.DB) (err error){
 		return	
 	}
 
+	errEmail := govalidator.IsEmail(u.Email)
+	if errEmail != true{
+		err = errors.New("Invalid Email Address")
+		return	
+	}
+
+	errPassword := len(u.Password)
+	if errPassword <= 5{
+		err = errors.New("Password has to have a minimum length of 6 characters")
+		return	
+	}
+
+	errAge := u.Age
+	if errAge < 8{
+		err = errors.New("age must be above 8 years old")
+		return	
+	}
+
+
 	hashedPass, err := helpers.HashPass(u.Password)
 	if err != nil {
 		return
@@ -38,4 +58,6 @@ func (u *User) BeforeCreate(projectDB *gorm.DB) (err error){
 	
 	return
 }
+
+
 
