@@ -80,7 +80,7 @@ definitions:
       username:
         type: string
     type: object
-host: https://golang-mygram-production-dfb5.up.railway.app/
+host: https://golang-mygram-production-dfb5.up.railway.app
 info:
   contact: {}
   description: Social media API for posting photos and commenting on people photos
