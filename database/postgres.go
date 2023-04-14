@@ -3,27 +3,16 @@ package database
 import (
 	"fmt"
 	"golang-mygram/models"
-	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 const (
-
-	// Local
-	// host     	= "localhost"
-	// user     	= "postgres1"
-	// password 	= "postgres1"
-	// port     	= 5432
-	// dbname		= "mygram"
-
-
-	// Railway
-	host     	= os.Getenv("PGHOST")
-	user     	= os.Getenv("PGUSER")
-	password 	= os.Getenv("PGPASSWORD")
-	port     	= os.Getenv("PGDATABASE")
+	host     	= "localhost"
+	user     	= "postgres1"
+	password 	= "postgres1"
+	port     	= 5432
 	dbname		= "mygram"
 
 )
