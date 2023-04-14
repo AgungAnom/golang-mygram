@@ -127,3 +127,15 @@ func DeletePhoto(c *gin.Context){
 		"message":"Photo deleted successfully",
 	})
 }
+
+func GetAllPhoto(c *gin.Context){
+	db := database.GetDB()
+	Photo := []models.Photo{}
+	err := db.Find(&Photo).Error
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	c.JSON(http.StatusOK,Photo)
+}
