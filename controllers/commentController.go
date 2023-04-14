@@ -26,15 +26,14 @@ func CreateComment(c *gin.Context) {
 	}
 
 	// Check photo before create comment
-	Photo := models.Comment{}
+	Photo := models.Photo{}
 	errPhoto := db.First(&Photo,  Comment.PhotoID).Error
 	if errPhoto != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound,gin.H{
-			"error_message": fmt.Sprintf("Photo with id %v not found", Comment.PhotoID),
+			"error_message": "Photo not found",
 			})
 		return
 	}
-
 	
 	Comment.UserID = userID
 	err := db.Debug().Create(&Comment).Error
@@ -53,7 +52,7 @@ func UpdateComment(c *gin.Context) {
 	db := database.GetDB()
 	OldComment := models.Comment{}
 	Comment := models.Comment{}
-	CommentID, _ := strconv.Atoi(c.Param("CommentID"))
+	CommentID, _ := strconv.Atoi(c.Param("commentID"))
 	userID := uint(userData["id"].(float64))
 
 
@@ -73,11 +72,11 @@ func UpdateComment(c *gin.Context) {
 	}
 
 	// Check photo before update comment
-	Photo := models.Comment{}
+	Photo := models.Photo{}
 	errPhoto := db.First(&Photo,  Comment.PhotoID).Error
 	if errPhoto != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound,gin.H{
-			"error_message": fmt.Sprintf("Photo with id %v not found", Comment.PhotoID),
+			"error_message": "Photo not found",
 			})
 		return
 	}
@@ -110,15 +109,15 @@ func UpdateComment(c *gin.Context) {
 }
 
 func GetComment(c *gin.Context){
-	CommentID, _ := strconv.Atoi(c.Param("CommentID"))
+	CommentID, _ := strconv.Atoi(c.Param("commentID"))
 	Comment := models.Comment{}
 	db := database.GetDB()
 
 	err := db.First(&Comment, CommentID).Error
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
 		c.AbortWithStatusJSON(http.StatusNotFound,gin.H{
-			"error_message": fmt.Sprintf("Comment with id %v not found", CommentID),
+			"error" :"Data Not Found",
+			"message": fmt.Sprintf("Comment with id %v not found", CommentID),
 			})
 		return
 	}
@@ -126,7 +125,7 @@ func GetComment(c *gin.Context){
 }
 
 func DeleteComment(c *gin.Context){
-	CommentID, _ := strconv.Atoi(c.Param("CommentID"))
+	CommentID, _ := strconv.Atoi(c.Param("commentID"))
 	Comment := models.Comment{}
 	db := database.GetDB()
 
@@ -147,4 +146,16 @@ func DeleteComment(c *gin.Context){
 	c.JSON(http.StatusOK,gin.H{
 		"message":"Comment deleted successfully",
 	})
+}
+
+func GetAllComment(c *gin.Context){
+	db := database.GetDB()
+	Comment := []models.Comment{}
+	err := db.Find(&Comment).Error
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	c.JSON(http.StatusOK,Comment)
 }

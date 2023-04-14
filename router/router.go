@@ -43,6 +43,7 @@ func StartApp() *gin.Engine {
 	{
 		commentRouter.Use(middlewares.Authentication())
 		commentRouter.POST("/",controllers.CreateComment)
+		commentRouter.GET("/",controllers.GetAllComment)
 		commentRouter.GET("/:commentID",controllers.GetComment)
 		commentRouter.PUT("/:commentID",middlewares.CommentAuthorization(),controllers.UpdateComment)
 		commentRouter.DELETE("/:commentID",middlewares.CommentAuthorization(),controllers.DeleteComment)
