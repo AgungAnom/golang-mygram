@@ -22,9 +22,9 @@ func StartApp() *gin.Engine {
 	{
 		socialMediaRouter.Use(middlewares.Authentication())
 		socialMediaRouter.POST("/",controllers.CreateComment)
-		socialMediaRouter.PUT("/:socialMediaID",middlewares.Authorization(),controllers.UpdateSocialMedia)
-		socialMediaRouter.GET("/:socialMediaID",middlewares.Authorization(),controllers.GetSocialMedia)
-		socialMediaRouter.DELETE("/:socialMediaID",middlewares.Authorization(),controllers.DeleteSocialMedia)
+		socialMediaRouter.PUT("/:socialMediaID",middlewares.SocialMediaAuthorization(),controllers.UpdateSocialMedia)
+		socialMediaRouter.GET("/:socialMediaID",middlewares.SocialMediaAuthorization(),controllers.GetSocialMedia)
+		socialMediaRouter.DELETE("/:socialMediaID",middlewares.SocialMediaAuthorization(),controllers.DeleteSocialMedia)
 	}
 
 	// Photo Router
@@ -32,18 +32,18 @@ func StartApp() *gin.Engine {
 	{
 		photoRouter.Use(middlewares.Authentication())
 		photoRouter.POST("/",controllers.CreateComment)
-		photoRouter.PUT("/:photoID",middlewares.Authorization(),controllers.UpdatePhoto)
-		photoRouter.GET("/:photoID",middlewares.Authorization(),controllers.GetPhoto)
-		photoRouter.DELETE("/:photoID",middlewares.Authorization(),controllers.DeletePhoto)
+		photoRouter.PUT("/:photoID",middlewares.PhotoAuthorization(),controllers.UpdatePhoto)
+		photoRouter.GET("/:photoID",middlewares.PhotoAuthorization(),controllers.GetPhoto)
+		photoRouter.DELETE("/:photoID",middlewares.PhotoAuthorization(),controllers.DeletePhoto)
 	}
 	// Comment Router
 	commentRouter := r.Group("/comments")
 	{
 		commentRouter.Use(middlewares.Authentication())
 		commentRouter.POST("/",controllers.CreateComment)
-		commentRouter.PUT("/:commentID",middlewares.Authorization(),controllers.UpdateComment)
-		commentRouter.GET("/:commentID",middlewares.Authorization(),controllers.GetComment)
-		commentRouter.DELETE("/:commentID",middlewares.Authorization(),controllers.DeleteComment)
+		commentRouter.PUT("/:commentID",middlewares.CommentAuthorization(),controllers.UpdateComment)
+		commentRouter.GET("/:commentID",middlewares.CommentAuthorization(),controllers.GetComment)
+		commentRouter.DELETE("/:commentID",middlewares.CommentAuthorization(),controllers.DeleteComment)
 	}
 	return r
 } 
