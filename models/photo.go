@@ -9,12 +9,13 @@ import (
 
 type Photo struct {
 ID 			uint	 	`gorm:"primaryKey" json:"id"`
-Title		string		`gorm:"not null" json:"username" form:"username" validate:"required~full name required"`
-Caption		string		`gorm:"not null;uniqueIndex" json:"email" form:"email" validate:"required~Email required,email~Invalid Email"`
-PhotoURL	string		`gorm:"not null" json:"password" form:"password" validate:"required~Password required,MinStringLength(6)~Password has to have a minimum length of 6 characters"`
-UserID		uint		`gorm:"not null" json:"age" form:"age" validate:"required~Age required"`
-CreatedAt time.Time `json:"created_at"`
-UpdatedAt time.Time `json:"updated_at"`
+Title		string		`gorm:"not null" json:"title" form:"title" validate:"required~Title required"`
+Caption		string		`json:"caption" form:"caption"`
+PhotoURL	string		`gorm:"not null" json:"photo_url" form:"password" validate:"required~Photo URL required"`
+UserID		uint		
+Comment []Comment		`gorm:"constraint:OnUpdate:CASCADE, OnDelete:SET NULL;"`
+CreatedAt time.Time 	`json:"created_at"`
+UpdatedAt time.Time 	`json:"updated_at"`
 
 }
 

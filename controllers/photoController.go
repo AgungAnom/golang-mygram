@@ -65,6 +65,7 @@ func UpdatePhoto(c *gin.Context) {
 	Photo.ID = uint(PhotoID)
 	Photo = models.Photo{
 		Title: Photo.Title,
+		Caption: Photo.Caption,
 		PhotoURL: Photo.PhotoURL,
 	}
 

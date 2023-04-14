@@ -64,6 +64,7 @@ func UpdateComment(c *gin.Context) {
 	Comment.UserID = userID
 	Comment.ID = uint(CommentID)
 	Comment = models.Comment{
+		PhotoID: Comment.PhotoID,
 		Message: Comment.Message,
 	}
 

@@ -22,7 +22,6 @@ func GenerateToken(id uint, email string) (token string, err error) {
 	return
 }
 
-
 func VerifyToken(c *gin.Context) (interface{}, error){
 	errResponse := errors.New("Login to proceed")
 	headerToken:= c.Request.Header.Get("Authorization")

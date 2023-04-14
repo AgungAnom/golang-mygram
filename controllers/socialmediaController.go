@@ -52,7 +52,7 @@ func UpdateSocialMedia(c *gin.Context) {
 	if err1 != nil {
 		c.AbortWithError(http.StatusInternalServerError, err1)
 		c.AbortWithStatusJSON(http.StatusNotFound,gin.H{
-			"error_message": fmt.Sprintf("SocialMedia with id %v not found", SocialMediaID),
+			"error_message": fmt.Sprintf("Social Media with id %v not found", SocialMediaID),
 			})
 		return
 	}
@@ -80,7 +80,7 @@ func UpdateSocialMedia(c *gin.Context) {
 	if err2 != nil {
 		c.AbortWithError(http.StatusInternalServerError, err2)
 		c.AbortWithStatusJSON(http.StatusNotFound,gin.H{
-			"error_message": fmt.Sprintf("SocialMedia with id %v not found", SocialMediaID),
+			"error_message": fmt.Sprintf("Social Media with id %v not found", SocialMediaID),
 			})
 		return
 	}
@@ -96,7 +96,7 @@ func GetSocialMedia(c *gin.Context){
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		c.AbortWithStatusJSON(http.StatusNotFound,gin.H{
-			"error_message": fmt.Sprintf("SocialMedia with id %v not found", SocialMediaID),
+			"error_message": fmt.Sprintf("Social Media with id %v not found", SocialMediaID),
 			})
 		return
 	}
@@ -112,7 +112,7 @@ func DeleteSocialMedia(c *gin.Context){
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		c.AbortWithStatusJSON(http.StatusNotFound,gin.H{
-			"error_message": fmt.Sprintf("SocialMedia with id %v not found", SocialMediaID),
+			"error_message": fmt.Sprintf("Social Media with id %v not found", SocialMediaID),
 			})
 		return
 	}
@@ -123,6 +123,6 @@ func DeleteSocialMedia(c *gin.Context){
 	}
 
 	c.JSON(http.StatusOK,gin.H{
-		"message":"SocialMedia deleted successfully",
+		"message":"Social Media deleted successfully",
 	})
 }

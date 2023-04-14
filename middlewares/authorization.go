@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func CommentAuthorization() gin.HandlerFunc {
+func Authorization() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		db := database.GetDB()
 		photoID, err := strconv.Atoi(c.Param("photoID"))

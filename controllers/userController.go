@@ -36,7 +36,8 @@ func UserRegister(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{
 		"id" : User.ID,
 		"email": User.Email,
-		"full_name":User.UserName,
+		"username":User.Username,
+		"age" :User.Age,
 	})
 }
 
